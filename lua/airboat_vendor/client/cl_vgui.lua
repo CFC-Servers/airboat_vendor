@@ -79,7 +79,7 @@ function AirboatVendor:makeMenu()
         draw.RoundedBox( 5, 0, 0, w, h, Color( 244, 65, 51 ) )
     end
 
-    local canAfford = getCanAfford()
+    local canAfford = self:getCanAfford()
 
     local yesColor = canAfford and Color( 42, 205, 113 ) or Color( 100, 100, 100 )
 
