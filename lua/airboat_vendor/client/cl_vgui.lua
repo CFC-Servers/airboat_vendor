@@ -92,7 +92,7 @@ function AirboatVendor:makeMenu()
     yesButton:SetCursor( canAfford and "hand" or "no" )
     function yesButton:DoClick()
         if canAfford then
-            purchaseVehicle()
+            self:purchaseVehicle()
             frame:Close()
             surface.PlaySound( "buttons/button5.wav" )
         else
