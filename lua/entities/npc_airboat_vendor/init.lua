@@ -1,7 +1,9 @@
 AddCSLuaFile("cl_init.lua")
+AddCSLuaFile("shared.lua")
+
 include( "shared.lua" )
 
-ENT.Base = "base_ai" 
+ENT.Base = "base_ai"
 ENT.Type = "ai"
 ENT.Model = "models/Eli.mdl"
 
