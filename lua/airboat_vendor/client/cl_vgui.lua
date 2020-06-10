@@ -4,6 +4,10 @@ function AirboatVendor:getCanAfford()
     return LocalPlayer():getDarkRPVar( "money" ) >= self.Config.price
 end
 
+function AirboatVendor:hasAirboat()
+    return IsValid( LocalPlayer():GetNWEntity( "currentAirboat", nil ) )
+end
+
 function AirboatVendor:purchaseVehicle()
     -- TODO: Send net message or something?
     net.Start( "AirboatVendor_PurchaseAirboat" )
@@ -81,24 +85,34 @@ function AirboatVendor:makeMenu()
     end
 
     local canAfford = self:getCanAfford()
+    local hasAirboat = self:hasAirboat()
+    local canPurchase = canAfford and not hasAirboat
 
-    local yesColor = canAfford and Color( 42, 205, 113 ) or Color( 100, 100, 100 )
+    local yesText = "Yep!"
+    if hasAirboat then
+        yesText = "Already Bought!"
+    elseif not canAfford then
+        yesText = "Can't Afford!"
+    end
+
+    local yesColor = canPurchase and Color( 42, 205, 113 ) or Color( 100, 100, 100 )
 
     local yesButton = vgui.Create( "DButton", frame )
     yesButton:SetSize( w * 0.15, h * 0.1 )
     yesButton:SetPos( w * 0.625, h * 0.85 )
     yesButton:SetFont( "TCBDealer_20" )
-    yesButton:SetText( canAfford and "Yep!" or "Can't afford" )
+    yesButton:SetText( yesText )
     yesButton:SetTextColor( Color( 255, 255, 255 ) )
-    yesButton:SetCursor( canAfford and "hand" or "no" )
+    yesButton:SetCursor( canPurchase and "hand" or "no" )
     function yesButton:DoClick()
-        if canAfford then
+        local buttonSound = canPurchase and "buttons/button5.wav" or "buttons/button16.wav"
+
+        if canPurchase then
             this:purchaseVehicle()
             frame:Close()
-            surface.PlaySound( "buttons/button5.wav" )
-        else
-            surface.PlaySound( "buttons/button16.wav" )
         end
+
+        surface.PlaySound( buttonSound )
     end
     function yesButton:Paint( w, h )
         draw.RoundedBox( 5, 0, 0, w, h, yesColor )
