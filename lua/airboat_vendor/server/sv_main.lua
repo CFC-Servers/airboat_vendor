@@ -67,7 +67,6 @@ function AirboatVendor:SpawnVendors()
 
         local ent = ents.Create( self.vendorClass )
 
-        ent:SetModel( "models/airboat.mdl" )
         ent:SetPos( pos )
         ent:SetAngles( ang )
         ent:Spawn()
@@ -98,6 +97,7 @@ function AirboatVendor:PurchaseAirboatFor( ply )
 
     local spawnPos, spawnAng = self:GetAirboatSpawnPos()
     local airboat = ents.Create( "prop_vehicle_airboat" )
+    airboat:SetModel( "models/airboat.mdl" )
     airboat:SetPos( spawnPos )
     airboat:SetAngles( spawnAng )
     airboat:Spawn()
