@@ -11,6 +11,7 @@ function AirboatVendor:purchaseVehicle()
 end
 
 function AirboatVendor:makeMenu()
+    local this = self
     local w, h = ScrW() * 0.5, ScrH() * 0.5
     
     local headerHeightMul = 0.08
@@ -92,7 +93,7 @@ function AirboatVendor:makeMenu()
     yesButton:SetCursor( canAfford and "hand" or "no" )
     function yesButton:DoClick()
         if canAfford then
-            self:purchaseVehicle()
+            this:purchaseVehicle()
             frame:Close()
             surface.PlaySound( "buttons/button5.wav" )
         else
