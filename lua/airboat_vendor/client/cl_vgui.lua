@@ -1,8 +1,7 @@
 AirboatVendor = AirboatVendor or {}
-local config = AirboatVendor.Config
 
 function AirboatVendor:getCanAfford()
-    return LocalPlayer():getDarkRPVar( "money" ) >= config.price
+    return LocalPlayer():getDarkRPVar( "money" ) >= self.Config.price
 end
 
 function AirboatVendor:purchaseVehicle()
@@ -48,7 +47,7 @@ function AirboatVendor:makeMenu()
     end
 
     local text = vgui.Create( "DLabel", frame )
-    text:SetText( "Would you like to buy an airboat for $" .. config.price .. "?" )
+    text:SetText( "Would you like to buy an airboat for $" .. self.Config.price .. "?" )
     text:SetFont( "TCBDealer_24" )
     text:SizeToContents()
     text:SetTextColor( Color( 0, 0, 0 ) )
