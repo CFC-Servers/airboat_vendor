@@ -1,9 +1,12 @@
 AirboatVendor = AirboatVendor or {}
 
+local thisMap = game.GetMap()
+
 AirboatVendor.saveDir = "airboat_vendor"
-AirboatVendor.saveFile = AirboatVendor.saveDir .. "/" .. game.GetMap() .. ".json"
+AirboatVendor.saveFile = AirboatVendor.saveDir .. "/" .. thisMap .. ".json"
 AirboatVendor.vendorClass = "npc_airboat_vendor"
 AirboatVendor.vendorData = {}
+AirboatVendor.spawnPoints = AirboatVendor.Config.spawnPoints[thisMap]
 AirboatVendor.logPrefix = "[AirboatVendor] "
 
 function AirboatVendor:log( ... )
@@ -73,7 +76,8 @@ function AirboatVendor:SpawnVendors()
 end
 
 function AirboatVendor:GetAirboatSpawnPos()
-    return Vector( 0, 0, 0 )
+    local selected = table.Random( self.spawnPoints )
+    return selected.pos, selected.ang
 end
 
 function AirboatVendor:PurchaseAirboatFor( ply )
