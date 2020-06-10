@@ -95,7 +95,7 @@ function AirboatVendor:PurchaseAirboatFor( ply )
         return
     end
 
-    local spawnPos, spawnAng = self.GetAirboatSpawnPos()
+    local spawnPos, spawnAng = self:GetAirboatSpawnPos()
     local airboat = ents.Create( "prop_vehicle_airboat" )
     airboat:SetPos( spawnPos )
     airboat:SetAngles( spawnAng )
