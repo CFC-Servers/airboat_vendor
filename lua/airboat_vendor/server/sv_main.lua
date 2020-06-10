@@ -22,6 +22,31 @@ function AirboatVendor:LoadVendorData()
     end
 end
 
+function AirboatVendor:SaveVendorsToFile()
+    local vendorData = util.TableToJSON( self.vendorData )
+
+    file.Write( self.saveFile, vendorData )
+end
+
+function AirboatVendor:SaveVendors()
+    local vendors = {}
+
+    for _, v in pairs( ents.GetAll() ) do
+        if v:IsValid() and v:GetClass() == self.vendorClass then
+            local vendorStruct = {
+                pos = v:GetPos(),
+                ang = v:GetAngles()
+            }
+
+            table.insert( vendors, vendorStruct )
+        end
+    end
+
+    self.vendorData = vendors
+
+    self:SaveVendorsToFile()
+end
+
 function AirboatVendor:DeleteVendors()
     for _, v in pairs( ents.GetAll() ) do
         if v:IsValid() and v:GetClass() == self.vendorClass then
@@ -103,4 +128,13 @@ hook.Add( "PlayerDisconnected", "AirboatVendor_CleanUpAirboats", function( ply )
     if not IsValid( currentAirboat ) then return end
 
     currentAirboat:Remove()
+end )
+
+hook.Add( "PlayerSay", "AirboatVendor_ChatCommands", function( ply, text )
+    if not ply:IsAdmin() then return end
+
+    if text == "!airboatvendor save" then
+        AirboatVendor:SaveVendors()
+        ply:ChatPrint( "Saved vendors!" )
+    end
 end )
