@@ -48,7 +48,7 @@ function AirboatVendor:makeMenu()
     end
 
     local text = vgui.Create( "DLabel", frame )
-    text:SetText( "Would you like to buy an airboat for $" .. self.Config.price .. "?" )
+    text:SetText( "Would you like to buy an airboat for $" .. DarkRP.formatMoney( self.Config.price ) .. "?" )
     text:SetFont( "TCBDealer_24" )
     text:SizeToContents()
     text:SetTextColor( Color( 0, 0, 0 ) )
