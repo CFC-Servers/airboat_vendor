@@ -1,7 +1,7 @@
 AirboatVendor = AirboatVendor or {}
 AirboatVendor.Config = {}
 
-AirboatVendor.Config.price = 15000
+AirboatVendor.Config.price = 1000
 
 -- TODO: Conver this to file-based saves with in-game chat commands
 AirboatVendor.Config.spawnPoints = {}
