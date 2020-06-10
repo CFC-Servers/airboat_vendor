@@ -1,5 +1,6 @@
 AirboatVendor = {}
 
+AddCSLuaFile( "airboat_vendor/sh_config.lua" )
 include( "airboat_vendor/sh_config.lua" )
 
 if SERVER then
